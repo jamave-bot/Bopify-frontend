@@ -4,14 +4,20 @@ import { useHistory } from 'react-router'
 import {Switch, Route, withRouter, Redirect} from 'react-router-dom';
 import HomePage from './Components/HomePage';
 import SignUpPage from './Components/SignUpPage';
-import '@fontsource/roboto';
+// import '@fontsource/roboto';
 import LoginPage from './Components/LoginPage'
 import Header from './Components/Header'
 import NewPlaylistForm from './Components/NewPlayistForm';
 import PlaylistPage from './Components/PlaylistPage'
+import { getTokenFromUrl } from './spotify';
+import SpotifyWebApi from 'spotify-web-api-js';
+import { useDataLayerValue } from './DataLayer';
+import Player from './Components/Player';
 
+const spotify = new SpotifyWebApi();
 
 function App() {
+  const [{spotifyUser, spotifyToken}, dispatch] = useDataLayerValue();
 
   const history = useHistory()
   const [id, setId] = useState(0)
@@ -19,42 +25,87 @@ function App() {
   const [playlists, setPlaylists] = useState([])
   const [songs, setSongs] = useState([])
   const [token, setToken] = useState(null)
+  // const [spotifyToken, setSpotifyToken] = useState("")
+  // const [spotifyUser, setSpotifyUser] = useState("")
+
+
 
   const user={
     id: id,
     username: username,
     playlists: playlists,
     songs: songs, 
-    token: token
+    token: token,
+    spotifyToken: spotifyToken,
+    spotifyUser: spotifyUser
   }
 
 
   useEffect(()=>{
-    console.log("yo it worked", localStorage.token)
-    if(localStorage.token){
-
-      fetch("http://127.0.0.1:3000/me", {
-        headers: {
-          "authorization": localStorage.token
-        }
+    console.log("This is what we derived from the URL: ", getTokenFromUrl())
+    //this is for the spotify token
+    const _spotifyToken = getTokenFromUrl().access_token;
+    //we don't want it in the URI
+    window.location.hash = "";
+    
+    console.log("THIS IS OUR SPOTIFY TOKEN ✌ ", _spotifyToken)
+    
+    if (_spotifyToken){
+      // setSpotifyToken(_spotifyToken)
+      dispatch({
+        type: "SET_TOKEN",
+        spotifyToken: _spotifyToken
       })
-        .then(res => res.json())
-        .then(handleResponse)
+      
+      spotify.setAccessToken(_spotifyToken)
+      
+      spotify.getMe().then((user)=>{
+        // setSpotifyUser(user)
+        dispatch({
+          type: 'SET_USER',
+          spotifyUser: user 
+        })
+        console.log("this is in the getMe, ", user)
+      });
+
+      spotify.getUserPlaylists().then((playlists)=>{
+        dispatch({
+          type: "SET_PLAYLISTS",
+          spotifyPlaylists: playlists
+        })
+      })
 
     }
-  },[])
+            
+    console.log("yo it worked", localStorage.token)
+            
+    if(localStorage.token){
+        
+      fetch("http://127.0.0.1:3000/me", {
+          headers: {
+            "authorization": localStorage.token
+          }
+        })
+          .then(res => res.json())
+          .then(handleResponse)  
+      }
 
-  const handleResponse = (resp) =>{
-    console.log("this is coming from handleResponse: ", resp)
-    if(resp.token){
-      setId(resp.user.id)
-      setUsername(resp.user.username)
-      setPlaylists(resp.user.playlists)
-      setSongs(resp.user.songs)
-      setToken(resp.token)
-      localStorage.token = resp.token
+    },[])
+          
+    console.log("DIS YOU: ", spotifyUser)
+    console.log("Spotify Token: ", spotifyToken)
 
-      history.push("/homepage")
+
+    const handleResponse = (resp) =>{
+      console.log("this is coming from handleResponse: ", resp)
+      if(resp.token){
+        setId(resp.user.id)
+        setUsername(resp.user.username)
+        setPlaylists(resp.user.playlists)
+        setSongs(resp.user.songs)
+        setToken(resp.token)
+        localStorage.token = resp.token
+        history.push("/homepage")
     } else {
       alert(resp.errors)
     }
@@ -130,6 +181,9 @@ function App() {
 
   const logOut = () =>{
     console.log("boutta head out")
+    dispatch({
+      type: "LOGOUT"
+    })
     setId(0)
     setUsername("")
     setPlaylists([])
@@ -159,7 +213,7 @@ function App() {
         deletePlaylist={deletePlaylist}
       />
     } else {
-      return <Redirect to="/login" />
+      return <Redirect to="/login" /> //Instead of redirect could make a PUBLIC playlist comp, when it gets mounted, useEffect that makes the request to the backend to get /:playlistID
     }
   }
 
@@ -180,7 +234,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <>
         <Header user={user} handleLogOut={logOut}/>
         <Switch >
           {/* <Route path="/youtube" render={renderYoutube}/> */}
@@ -194,7 +248,8 @@ function App() {
           {/* <iframe title="musicPlayer" src="https://open.spotify.com/embed/track/4PuccpuGVKgdiULunPMS95" width="560" height="315" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
           <iframe width="560" height="315" src="https://www.youtube.com/embed/lbyyVIIkdeQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}
         </Switch>
-    </div>
+        {user.token ? <Player spotify={spotify}/> : null}
+    </>
   );
 }
 

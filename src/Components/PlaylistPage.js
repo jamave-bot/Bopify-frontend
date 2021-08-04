@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import { useParams } from 'react-router'
 import { useHistory } from 'react-router'
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 
 export default function PlaylistPage(props) {
     const [formVisible, setFormVisible] = useState(false)
@@ -13,6 +15,8 @@ export default function PlaylistPage(props) {
     // <iframe width="560" height="315" src="https://www.youtube.com/embed/lbyyVIIkdeQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     const playlistSongs = props.user.songs.filter(song => song.playlist_id === parseInt(playlistId))
 
+    //useEffect 
+    //render out playlist
 
 
     const showForm = (e) =>{
@@ -77,12 +81,12 @@ export default function PlaylistPage(props) {
         return playlistSongs.map(song=>{
             return <>
             <iframe 
-            width="560" 
-            height="315" 
-            src={getSrc(song.source, song.song_link)}
-            title="Music player" frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
+                width="560" 
+                height="315" 
+                src={getSrc(song.source, song.song_link)}
+                title="Music player" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
             </iframe>
             <br></br>
             <button onClick={()=>deleteSong(song.id)}>X</button>
@@ -123,6 +127,8 @@ export default function PlaylistPage(props) {
         <>
             <h2>{playlist? playlist.name: "nothin"}</h2>  
             <button onClick={showForm}>{formVisible ? "Nevermind" :"Add Song"}</button>
+            <button onClick={deletePlaylist}>Delete Playlist?</button>
+
             {formVisible ? 
             <form onSubmit={handleSubmit}>
                 <label for='song_link'>Song Link</label>
@@ -142,7 +148,15 @@ export default function PlaylistPage(props) {
             <br></br>
             <br></br>
             <br></br>
-            <button onClick={deletePlaylist}>Delete Playlist?</button>
+            {/* <button onClick={deletePlaylist}>Delete Playlist?</button> */}
+            <br></br>
+            <AudioPlayer
+                autoPlay
+                src="http://example.com/audio.mp3"
+                onPlay={e => console.log("onPlay")}
+                // other props here
+            />
+        
         </>
     )
 }
