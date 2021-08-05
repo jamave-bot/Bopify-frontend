@@ -171,9 +171,14 @@ function App() {
   }
 
   const renderLoginPage = () =>{
-    return <>
-      <LoginPage handleLoginSubmit={handleLoginSubmit}/>
-    </>
+    if(user.token){
+      return <Redirect to="/homepage"/>
+    } else{
+      return <>
+        <LoginPage handleLoginSubmit={handleLoginSubmit}/>
+      </>
+
+    }
   }
 
   const handleLoginSubmit = (userInfo) => {
