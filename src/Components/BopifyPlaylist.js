@@ -149,6 +149,13 @@ function BopifyPlaylist({spotify, user, addSong, deleteSong, deletePlaylist}) {
             <div className="deletePlaylistButton">
                 <button onClick={deleteThisPlaylist} >Delete Playlist?</button>
             </div>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+
             
         </div>
     )

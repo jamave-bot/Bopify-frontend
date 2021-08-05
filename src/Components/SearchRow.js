@@ -43,7 +43,7 @@ function SearchRow({video="test"}) {
                 horizontal: 'center',
                 }}
             >
-                <Typography className={classes.typography}>https://youtu.be/{video.id.videoId}</Typography>
+                <Typography className={classes.typography}>{`https://youtu.be/${video.id.videoId}`}</Typography>
             </Popover>
             <div className="songRow_info">
                 <h1>{video.snippet.title}</h1>
