@@ -13,6 +13,8 @@ import { getTokenFromUrl } from './spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
 import { useDataLayerValue } from './DataLayer';
 import Player from './Components/Player';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 const spotify = new SpotifyWebApi();
 
@@ -38,7 +40,7 @@ function App() {
 
 
   useEffect(()=>{
-    console.log("This is what we derived from the URL: ", getTokenFromUrl())
+    // console.log("This is what we derived from the URL: ", getTokenFromUrl())
     //this is for the spotify token
     const _spotifyToken = getTokenFromUrl().access_token;
     //we don't want it in the URI
@@ -109,6 +111,10 @@ function App() {
         setToken(resp.token)
         localStorage.token = resp.token
         history.push("/homepage")
+        dispatch({
+          type: "SET_BOPIFY_ID",
+          bopifyUserId: resp.user.id
+        })
         dispatch({
           type: "SET_BOPIFY_PLAYLISTS",
           bopifyPlaylists: resp.user.playlists
@@ -209,6 +215,10 @@ function App() {
 
   const addPlaylist = (newPlaylist)=>{
     setPlaylists([...playlists, newPlaylist])
+    dispatch({
+      type: "SET_BOPIFY_PLAYLISTS",
+      bopifyPlaylists: [...playlists, newPlaylist]
+    })
   }
 
   const renderPlaylistPage = (routerProps)=>{
@@ -238,10 +248,16 @@ function App() {
     let playlistsCopy = [...playlists]
     let newPlaylists = playlistsCopy.filter(playlist=> playlist.id !== playlistToDelete.id)
     setPlaylists(newPlaylists)
+    dispatch({
+      type: "SET_BOPIFY_PLAYLISTS",
+      bopifyPlaylists: newPlaylists 
+    })
   }
 
   return (
     <>
+        <CssBaseline />
+
         <Header user={user} handleLogOut={logOut}/>
         <Switch >
           {/* <Route path="/youtube" render={renderYoutube}/> */}
@@ -255,7 +271,14 @@ function App() {
           {/* <iframe title="musicPlayer" src="https://open.spotify.com/embed/track/4PuccpuGVKgdiULunPMS95" width="560" height="315" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
           <iframe width="560" height="315" src="https://www.youtube.com/embed/lbyyVIIkdeQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}
         </Switch>
-        {user.token ? <Player spotify={spotify}/> : null}
+        {user.token ? 
+        <Player 
+        spotify={spotify} 
+        user={user}  
+        addSong={addSong}
+        deleteSong={deleteSong}
+        deletePlaylist={deletePlaylist}
+        addPlaylist={addPlaylist}/> : null}
     </>
   );
 }
