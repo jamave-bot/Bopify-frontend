@@ -7,7 +7,7 @@ import SignUpPage from './Components/SignUpPage';
 // import '@fontsource/roboto';
 import LoginPage from './Components/LoginPage'
 import Header from './Components/Header'
-import NewPlaylistForm from './Components/NewPlayistForm';
+// import NewPlaylistForm from './Components/NewPlayistForm';
 import PlaylistPage from './Components/PlaylistPage'
 import { getTokenFromUrl } from './spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
@@ -19,7 +19,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 const spotify = new SpotifyWebApi();
 
 function App() {
-  const [{spotifyUser, spotifyToken}, dispatch] = useDataLayerValue();
+  const [{spotifyUser, spotifyToken, spotifyPlaylists}, dispatch] = useDataLayerValue();
 
   const history = useHistory()
   const [id, setId] = useState(0)
@@ -46,7 +46,7 @@ function App() {
     //we don't want it in the URI
     window.location.hash = "";
     
-    console.log("THIS IS OUR SPOTIFY TOKEN ✌ ", _spotifyToken)
+    // console.log("THIS IS OUR SPOTIFY TOKEN ✌ ", _spotifyToken)
     
     if (_spotifyToken){
       // setSpotifyToken(_spotifyToken)
@@ -98,6 +98,7 @@ function App() {
     },[])
           
     console.log("DIS YOU: ", spotifyUser)
+    console.log("😎😎😎😋😋", spotifyPlaylists)
     console.log("Spotify Token: ", spotifyToken)
 
 
@@ -207,11 +208,11 @@ function App() {
   }
 
 
-  const renderNewPlaylistPage = ()=>{
-    return <>
-      <NewPlaylistForm addPlaylist={addPlaylist} user={user}/>
-    </>
-  }
+  // const renderNewPlaylistPage = ()=>{
+  //   return <>
+  //     <NewPlaylistForm addPlaylist={addPlaylist} user={user}/>
+  //   </>
+  // }
 
   const addPlaylist = (newPlaylist)=>{
     setPlaylists([...playlists, newPlaylist])
@@ -255,17 +256,18 @@ function App() {
   }
 
   return (
-    <>
+    <div className="thePage">
         <CssBaseline />
 
         <Header user={user} handleLogOut={logOut}/>
         <Switch >
           {/* <Route path="/youtube" render={renderYoutube}/> */}
-          <Route path="/newPlaylist" render={renderNewPlaylistPage}/>
+          {/* <Route path="/newPlaylist" render={renderNewPlaylistPage}/> */}
           <Route path="/playlist/:playlistId" children={renderPlaylistPage}/>
           <Route path="/homepage" render={renderHomePage}/>
           <Route path="/login" render={renderLoginPage}/>
           <Route path="/signup" render={renderSignUpPage} />
+          <Route path="/spotifyPlaylist/:playlistId" children={renderPlaylistPage}/>
           <Route path="/" render={renderLoginPage}/>
 
           {/* <iframe title="musicPlayer" src="https://open.spotify.com/embed/track/4PuccpuGVKgdiULunPMS95" width="560" height="315" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
@@ -279,7 +281,7 @@ function App() {
         deleteSong={deleteSong}
         deletePlaylist={deletePlaylist}
         addPlaylist={addPlaylist}/> : null}
-    </>
+    </div>
   );
 }
 

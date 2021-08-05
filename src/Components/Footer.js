@@ -8,12 +8,13 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 import { Grid, Slider } from '@material-ui/core';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import VolumeDownIcon from '@material-ui/icons/VolumeDown';
+import BopifyLogo from "../bopifyPlaylistIcon.jpg"
 
 function Footer() {
     return (
         <div className="footer">
             <div className="footer_left">
-                <img className="footer_albumLogo" src="" alt="album cover"></img>
+                <img className="footer_albumLogo" src={BopifyLogo} alt="album cover"></img>
                 <div className="footer_songInfo">
                     <h4>Title</h4>
                     <p>Artist</p>

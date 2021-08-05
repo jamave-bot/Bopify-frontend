@@ -3,10 +3,10 @@ import "../CSS/Player.css"
 import Body from './Body'
 import Footer from './Footer'
 import Sidebar from './Sidebar'
-import { useHistory } from 'react-router'
-import {Switch, Route, withRouter, Redirect} from 'react-router-dom';
+// import { useHistory } from 'react-router'
+import {Switch, Route} from 'react-router-dom';
 import BopifyPlaylist from './BopifyPlaylist.js'
-
+import SpotifyPlaylist from './SpotifyPlaylist'
 
 function Player({spotify, user, addSong, deleteSong, deletePlaylist, addPlaylist }) {
 
@@ -20,6 +20,13 @@ function Player({spotify, user, addSong, deleteSong, deletePlaylist, addPlaylist
         />
     }
 
+    const renderSpotifyPlaylist = (routerProps)=>{
+        return <SpotifyPlaylist 
+        spotify={spotify} 
+        user={user}
+        />
+    }
+
 
     return (
         <div className="player">
@@ -27,7 +34,10 @@ function Player({spotify, user, addSong, deleteSong, deletePlaylist, addPlaylist
                 <Sidebar user={user} addPlaylist={addPlaylist}/>
                 <Switch>
                     <Route path="/playlist/:playlistId" children={renderPlaylist}/>
-                    <Body spotify={spotify}/>
+                    <Route path="/spotifyPlaylist/:spotifyPlaylistId" children={renderSpotifyPlaylist}/>
+                    <Route path="/homepage" children={<Body spotify={spotify}/>} />
+
+                    {/* <Body spotify={spotify}/> */}
 
                 </Switch>
             </div>

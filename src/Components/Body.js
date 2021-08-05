@@ -7,7 +7,7 @@ import SongRow from './SongRow';
 
 function Body({spotify}) {
   const [{discover_weekly}] = useDataLayerValue();
-
+    console.log("this is discover weekly 😁😁😁😀😁😁😁🤣😎 : ", discover_weekly )
     return (
         <div className="body">
             <SpotifyHeader spotify={spotify}/>

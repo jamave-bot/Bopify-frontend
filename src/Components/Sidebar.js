@@ -31,6 +31,10 @@ function Sidebar({user, addPlaylist}) {
         history.push(`/playlist/${id}`)
     }
 
+    const goToSpotifyPlaylist = (id) =>{
+        history.push(`/spotifyPlaylist/${id}`)
+    }
+
     const goToHomePage = () =>{
         history.push('/homepage')
     }
@@ -113,7 +117,9 @@ function Sidebar({user, addPlaylist}) {
             <hr></hr>
 
             {spotifyPlaylists?.items?.map(playlist =>(
-                <SidebarOption title={playlist.name}/>
+                <div onClick={()=>goToSpotifyPlaylist(playlist.id)}>
+                    <SidebarOption title={playlist.name}/>
+                </div>
             ))}
 
         </div>

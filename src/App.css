@@ -18,7 +18,12 @@
   color: white;
 } */
 
-
+.App::-webkit-scrollbar{
+  display: none;
+}
+.thePage::-webkit-scrollbar{
+  display: none;
+}
 header {
   background-color: #040404;
   height: 75px;
