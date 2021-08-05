@@ -74,7 +74,7 @@ function Sidebar({user, addPlaylist}) {
                 <SidebarOption Icon={HomeIcon} title="Home" />
             </div>
             <SidebarOption Icon={SearchIcon} title="Search" />
-            <SidebarOption Icon={LibraryMusicIcon} title="Your Library" />
+            {/* <SidebarOption Icon={LibraryMusicIcon} title="Your Library" /> */}
             {spotifyToken ? 
             <SidebarOption Icon={ContactlessIcon} title="Logged In to Spotify"/>
             :
