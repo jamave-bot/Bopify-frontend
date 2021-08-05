@@ -67,13 +67,19 @@ function Sidebar({user, addPlaylist}) {
         })
     }
 
+    const goToSearchPage = ()=>{
+        history.push('/searchPage')
+    }
+
     return (
         <div className="sidebar">
             {/* <img className="sidebar_logo" src="https://getheavy.com/wp-content/uploads/2019/12/spotify2019-830x350.jpg" alt="logo"/> */}
             <div onClick={goToHomePage}>
                 <SidebarOption Icon={HomeIcon} title="Home" />
             </div>
-            <SidebarOption Icon={SearchIcon} title="Search" />
+            <div onClick={goToSearchPage}>
+                <SidebarOption Icon={SearchIcon} title="Search" />
+            </div>
             {/* <SidebarOption Icon={LibraryMusicIcon} title="Your Library" /> */}
             {spotifyToken ? 
             <SidebarOption Icon={ContactlessIcon} title="Logged In to Spotify"/>

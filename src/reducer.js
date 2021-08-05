@@ -45,6 +45,11 @@ const reducer = (state, action) =>{
                 ...state,
                 bopifyUserId: action.bopifyUserId
             }
+        case "SET_SEARCH_TERM":
+            return{
+                ...state,
+                searchTerm: action.searchTerm
+            }
         case 'LOGOUT':
             return initialState
             

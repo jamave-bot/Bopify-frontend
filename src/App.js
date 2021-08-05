@@ -16,6 +16,7 @@ import Player from './Components/Player';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 
+// console.log("😫😫😫😫😫😫THIs is the YT api: ", process.env.REACT_APP_YOUTUBE_KEY)
 const spotify = new SpotifyWebApi();
 
 function App() {
@@ -273,6 +274,8 @@ function App() {
           <Route path="/login" render={renderLoginPage}/>
           <Route path="/signup" render={renderSignUpPage} />
           <Route path="/spotifyPlaylist/:playlistId" children={renderPlaylistPage}/>
+          <Route path="/searchPage" children={renderPlaylistPage}/>
+
           <Route path="/" render={renderLoginPage}/>
 
           {/* <iframe title="musicPlayer" src="https://open.spotify.com/embed/track/4PuccpuGVKgdiULunPMS95" width="560" height="315" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>

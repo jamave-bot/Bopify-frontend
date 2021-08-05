@@ -5,9 +5,18 @@ import {Avatar} from "@material-ui/core"
 import { useDataLayerValue } from '../DataLayer';
 
 
-function SpotifyHeader() {
-  const [{spotifyUser}] = useDataLayerValue();
+function SpotifyHeader({setSearch}) {
+    const [{spotifyUser,searchTerm}, dispatch] = useDataLayerValue();
 
+
+    const handleChange =(e)=>{
+        dispatch({
+            type: "SET_SEARCH_TERM",
+            searchTerm: e.target.value
+        })
+        console.log(searchTerm)
+        setSearch(e.target.value)
+    }
 
 
     return (
@@ -17,6 +26,7 @@ function SpotifyHeader() {
                 <input
                     placeholder="Search for Artists, Songs"
                     type="text"
+                    onChange={handleChange}
                 />
             </div>
 

@@ -7,8 +7,15 @@ import Sidebar from './Sidebar'
 import {Switch, Route} from 'react-router-dom';
 import BopifyPlaylist from './BopifyPlaylist.js'
 import SpotifyPlaylist from './SpotifyPlaylist'
+import { useDataLayerValue } from '../DataLayer.js';
+import SearchPage from './SearchPage'
 
 function Player({spotify, user, addSong, deleteSong, deletePlaylist, addPlaylist }) {
+
+
+    const [{searchTerm}] = useDataLayerValue();
+
+
 
     const renderPlaylist = (routerProps)=>{
         return <BopifyPlaylist 
@@ -27,6 +34,12 @@ function Player({spotify, user, addSong, deleteSong, deletePlaylist, addPlaylist
         />
     }
 
+    const renderSearchPage = ()=>{
+        return <SearchPage 
+        spotify={spotify}
+        />
+    }
+
 
     return (
         <div className="player">
@@ -35,6 +48,8 @@ function Player({spotify, user, addSong, deleteSong, deletePlaylist, addPlaylist
                 <Switch>
                     <Route path="/playlist/:playlistId" children={renderPlaylist}/>
                     <Route path="/spotifyPlaylist/:spotifyPlaylistId" children={renderSpotifyPlaylist}/>
+                    <Route path="/searchPage" children={renderSearchPage}/>
+
                     <Route path="/homepage" children={<Body spotify={spotify}/>} />
 
                     {/* <Body spotify={spotify}/> */}

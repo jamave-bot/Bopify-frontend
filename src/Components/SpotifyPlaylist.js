@@ -7,6 +7,8 @@ import { useParams } from 'react-router'
 
 
 function SpotifyPlaylist({spotify}) {
+    const [{searchTerm}] = useDataLayerValue();
+
     const {spotifyPlaylistId}= useParams()
     const [spotifyPlaylist, setSpotifyPlaylist] = useState({
         images: [{url:""}],
@@ -15,11 +17,14 @@ function SpotifyPlaylist({spotify}) {
     // const [{spotifyPlaylists}] = useDataLayerValue();
 
     spotify.getPlaylist(spotifyPlaylistId).then((response)=>{
-        console.log("hEYOOOO 😍😍🤗🙂☺🤗😎this is the resposne",response)
+        // console.log("hEYOOOO 😍😍🤗🙂☺🤗😎this is the resposne",response)
         setSpotifyPlaylist(response)
+        console.log("this is the filtered playlist: 🙂😎🤩🤩🤩😏🙄: ", filteredPlaylist )
     })
 
-    
+    const filteredPlaylist  =() =>{
+        return spotifyPlaylist.tracks.items.filter(item=> item.track.name.includes(searchTerm))
+    } 
 
     return (
         <div className="body">
