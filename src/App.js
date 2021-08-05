@@ -25,10 +25,6 @@ function App() {
   const [playlists, setPlaylists] = useState([])
   const [songs, setSongs] = useState([])
   const [token, setToken] = useState(null)
-  // const [spotifyToken, setSpotifyToken] = useState("")
-  // const [spotifyUser, setSpotifyUser] = useState("")
-
-
 
   const user={
     id: id,
@@ -75,6 +71,13 @@ function App() {
         })
       })
 
+      spotify.getPlaylist("37i9dQZEVXcCAebSjCB2mY").then((response)=>{
+        dispatch({
+          type: "SET_DISCOVER_WEEKLY",
+          discover_weekly: response
+        })
+      })
+
     }
             
     console.log("yo it worked", localStorage.token)
@@ -106,6 +109,10 @@ function App() {
         setToken(resp.token)
         localStorage.token = resp.token
         history.push("/homepage")
+        dispatch({
+          type: "SET_BOPIFY_PLAYLISTS",
+          bopifyPlaylists: resp.user.playlists
+        })
     } else {
       alert(resp.errors)
     }

@@ -3,6 +3,7 @@ export const initialState = {
     // Remove after
     spotifyToken: "",
     spotifyPlaylists: [],
+    bopifyPlaylists:[],
     playing: false,
     item: null, 
 };
@@ -26,6 +27,16 @@ const reducer = (state, action) =>{
             return{
                 ...state,
                 spotifyPlaylists: action.spotifyPlaylists
+            }
+        case "SET_BOPIFY_PLAYLISTS":
+            return{
+                ...state,
+                bopifyPlaylists: action.bopifyPlaylists
+            }
+        case "SET_DISCOVER_WEEKLY":
+            return{
+                ...state,
+                discover_weekly: action.discover_weekly
             }
         case 'LOGOUT':
             return initialState

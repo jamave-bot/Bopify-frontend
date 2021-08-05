@@ -6,7 +6,7 @@ import { useDataLayerValue } from '../DataLayer';
 
 
 function SpotifyHeader() {
-  const [{spotifyUser}, dispatch] = useDataLayerValue();
+  const [{spotifyUser}] = useDataLayerValue();
 
 
 
