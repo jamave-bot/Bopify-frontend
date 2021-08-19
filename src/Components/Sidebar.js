@@ -3,7 +3,7 @@ import "../CSS/Sidebar.css"
 import SidebarOption from './SidebarOption'
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
-import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
+// import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import ContactlessIcon from '@material-ui/icons/Contactless';
 import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
 import { useDataLayerValue } from '../DataLayer';

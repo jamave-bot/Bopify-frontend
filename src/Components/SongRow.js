@@ -48,9 +48,13 @@ function SongRow({track="test"}) {
             <div className="songRow_info">
                 <h1>{track.name}</h1>
                 <p>
-                    {track.artists.map((artist) => artist.name).join(", ")}
-                    {track.album.name}
+                    {track.artists.map((artist) => artist.name).join(", ")} 
+                    : 
+                     {track.album.name}                
                 </p>
+                <p>
+                </p>
+
             </div>
 
 

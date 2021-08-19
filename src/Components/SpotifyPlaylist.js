@@ -1,30 +1,34 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import '../CSS/Body.css'
 import SpotifyHeader from './SpotifyHeader'
-import { useDataLayerValue } from '../DataLayer.js';
+// import { useDataLayerValue } from '../DataLayer.js';
 import SongRow from './SongRow';
 import { useParams } from 'react-router'
 
 
-function SpotifyPlaylist({spotify}) {
-    const [{searchTerm}] = useDataLayerValue();
+function SpotifyPlaylist({spotify, getPlaylist, playlistId}) {
+    // const [{searchTerm}] = useDataLayerValue();
 
     const {spotifyPlaylistId}= useParams()
+    getPlaylist(spotifyPlaylistId)
     const [spotifyPlaylist, setSpotifyPlaylist] = useState({
         images: [{url:""}],
         tracks:{items: []}
     })
     // const [{spotifyPlaylists}] = useDataLayerValue();
-
+    
+    useEffect(() => {
+        // console.log("this is the filtered playlist: 🙂😎🤩🤩🤩😏🙄: ", filteredPlaylist() )
+        // console.log("ROUTER PROPSSSSS",routerProps)
+    }, [])
+    
     spotify.getPlaylist(spotifyPlaylistId).then((response)=>{
         // console.log("hEYOOOO 😍😍🤗🙂☺🤗😎this is the resposne",response)
         setSpotifyPlaylist(response)
-        console.log("this is the filtered playlist: 🙂😎🤩🤩🤩😏🙄: ", filteredPlaylist )
     })
-
-    const filteredPlaylist  =() =>{
-        return spotifyPlaylist.tracks.items.filter(item=> item.track.name.includes(searchTerm))
-    } 
+    // const filteredPlaylist  =() =>{
+    //     return spotifyPlaylist.tracks.items.filter(item=> item.track.name.includes(searchTerm))
+    // } 
 
     return (
         <div className="body">

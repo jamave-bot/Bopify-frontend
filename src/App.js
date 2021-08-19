@@ -95,7 +95,7 @@ function App() {
           .then(res => res.json())
           .then(handleResponse)  
       }
-
+      // eslint-disable-next-line
     },[])
           
     console.log("DIS YOU: ", spotifyUser)
