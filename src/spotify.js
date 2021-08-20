@@ -2,7 +2,7 @@
 
 export const authEndpoint = "https://accounts.spotify.com/authorize";
 
-const redirectUri = "http://localhost:3001/"
+const redirectUri = "https://bopify.netlify.app/"
 
 const clientId = "5b61678e702c48c887de782dc7ecb20a"
 

@@ -57,7 +57,7 @@ export default function NewPlaylistForm(props) {
     const handleSubmit = (e)=>{
         e.preventDefault()
 
-        fetch("http://127.0.0.1:3000/playlists", {
+        fetch("https://bopify-api.herokuapp.com/playlists", {
             method: "POST",
             headers: {
               "Content-type": "application/json",

@@ -88,7 +88,7 @@ function App() {
             
     if(localStorage.token){
         
-      fetch("http://127.0.0.1:3000/me", {
+      fetch("https://bopify-api.herokuapp.com/me", {
           headers: {
             "authorization": localStorage.token
           }
@@ -157,7 +157,7 @@ function App() {
   const handleRegisterSubmit = (userInfo) => {
     console.log("Register form has been submitted")
 
-    fetch("http://127.0.0.1:3000/users", {
+    fetch("https://bopify-api.herokuapp.com/users", {
       method: "POST",
       headers: {
         "Content-type": "application/json"
@@ -186,7 +186,7 @@ function App() {
   const handleLoginSubmit = (userInfo) => {
     console.log("Login form has been submitted")
 
-    fetch("http://127.0.0.1:3000/login", {
+    fetch("https://bopify-api.herokuapp.com/login", {
       method: "POST",
       headers: {
         "Content-type": "application/json"

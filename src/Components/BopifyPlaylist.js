@@ -39,7 +39,7 @@ function BopifyPlaylist({spotify, user, addSong, deleteSong, deletePlaylist}) {
 
     const handleSubmit = (e)=>{
         e.preventDefault();
-        fetch("http://127.0.0.1:3000/songs", {
+        fetch("https://bopify-api.herokuapp.com/songs", {
             method: "POST",
             headers: {
               "Content-type": "application/json",
@@ -76,7 +76,7 @@ function BopifyPlaylist({spotify, user, addSong, deleteSong, deletePlaylist}) {
 
 
     const deleteThisSong = (song_id)=>{
-        fetch(`http://127.0.0.1:3000/songs/${song_id}`, {
+        fetch(`https://bopify-api.herokuapp.com/${song_id}`, {
             method: "DELETE",
             headers: {
               "authorization": localStorage.token
@@ -90,7 +90,7 @@ function BopifyPlaylist({spotify, user, addSong, deleteSong, deletePlaylist}) {
     }
 
     const deleteThisPlaylist = ()=>{
-        fetch(`http://127.0.0.1:3000/playlists/${playlistId}`, {
+        fetch(`https://bopify-api.herokuapp.com/${playlistId}`, {
             method: "DELETE",
             headers: {
               "authorization": localStorage.token
