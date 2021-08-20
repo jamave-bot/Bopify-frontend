@@ -20,6 +20,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 const spotify = new SpotifyWebApi();
 
 function App() {
+  // eslint-disable-next-line
   const [{spotifyUser, spotifyToken, spotifyPlaylists}, dispatch] = useDataLayerValue();
 
   const history = useHistory()
@@ -98,9 +99,9 @@ function App() {
       // eslint-disable-next-line
     },[])
           
-    console.log("DIS YOU: ", spotifyUser)
-    console.log("😎😎😎😋😋", spotifyPlaylists)
-    console.log("Spotify Token: ", spotifyToken)
+    // console.log("DIS YOU: ", spotifyUser)
+    // console.log("😎😎😎😋😋", spotifyPlaylists)
+    // console.log("Spotify Token: ", spotifyToken)
 
 
     const handleResponse = (resp) =>{
