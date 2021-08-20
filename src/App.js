@@ -16,7 +16,6 @@ import Player from './Components/Player';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 
-// console.log("😫😫😫😫😫😫THIs is the YT api: ", process.env.REACT_APP_YOUTUBE_KEY)
 const spotify = new SpotifyWebApi();
 
 function App() {
