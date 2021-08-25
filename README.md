@@ -2,6 +2,8 @@
 
 ## Live Site: https://bopify.netlify.app/
 
+## Backend repo: https://github.com/jamave-bot/Bopify-backend
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
