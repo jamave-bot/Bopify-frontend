@@ -2,7 +2,7 @@
 
 # Bopify
 
-This repo is the React frontend of a productivity tracker. This personal project utilizes the Spotify and YouTube API to pull user information/use their search functions to find songs. Frontend was built with React and CSS styling done with MaterialUI. To see Rails backend [click here](https://github.com/jamave-bot/Bopify-backend).
+This repo is the React frontend of a playlist curation app. This personal project utilizes the Spotify and YouTube API to pull user information/use their search functions to find songs. Frontend was built with React and CSS styling done with MaterialUI. To see Rails backend [click here](https://github.com/jamave-bot/Bopify-backend).
 
 ![homepage](./public/homepage.jpg)
 
